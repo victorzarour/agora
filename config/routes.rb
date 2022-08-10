@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  get '/hello', to: 'application#hello_world'
+  resources :professors
+
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#delete'
 
   get '*path',
       to: 'fallback#index',

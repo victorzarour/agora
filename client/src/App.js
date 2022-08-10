@@ -1,14 +1,29 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Agenda from "./Agenda";
+import Calendaire from "./Calendaire";
+import Home from "./components/Home";
+import Table from "./Table";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [currentUser, setCurrentUser] = useState(false)
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
+    fetch('/authorized_user')
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((user) => {
+          setCurrentUser(user);
+        });
+      } else {
+        response.json().then( (json) => {
+          if (json.errors !== undefined) {
+            alert(json.errors);
+          }
+        });
+      }
+    })
+  },[]);
 
   return (
     <BrowserRouter>
@@ -17,8 +32,17 @@ function App() {
           <Route path="/testing">
             <h1>Test Route</h1>
           </Route>
+          <Route path="/chicho">
+            <Calendaire />
+          </Route>
+          <Route path="/agenda">
+            <Agenda />
+          </Route>
+          <Route path="/table">
+            <Table />
+          </Route>
           <Route path="/">
-            <h1>Page Count: {count}</h1>
+            <Home setCurrentUser={ setCurrentUser } currentUser={currentUser}/>
           </Route>
         </Switch>
       </div>
