@@ -1,5 +1,5 @@
 class ProfessorsController < ApplicationController
-    skip_before_action :authorized_user, only: [:show, :create]
+    skip_before_action :authorized_user, only: [:show, :create, :professor_courses]
 
     def show
       render json: current_user, status: :ok
@@ -9,7 +9,12 @@ class ProfessorsController < ApplicationController
       professor = Professor.create!(professor_params)
       render json: professor, status: :created
     end
-  
+
+    def professor_courses
+      professor = Professor.find(params[:id])
+      render json: professor.courses
+    end
+
     private
   
     def professor_params

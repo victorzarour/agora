@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 
-function SignupForm( {setCurrentUser} ){
+function SignupForm( ){
+
+  const { setUser } = useContext(UserContext)
   const [formData, setFormData] = useState({
     first_name: "",
+    email: "",
     last_name: "",
     password: "",
     confirmPassword: "",
@@ -30,8 +35,8 @@ function SignupForm( {setCurrentUser} ){
     }).then((response) => {
       if (response.ok) {
         response.json().then((professor) => {
-          setCurrentUser(professor)
-          history.push(`/`);
+          setUser(professor)
+          history.push(`/professors/${professor.id}/courses`);
         });
       } else {
         response.json().then((resp) => alert(resp.errors));

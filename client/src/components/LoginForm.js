@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 
 
+const LoginForm = () => {
 
-const LoginForm = ({ setCurrentUser }) => {
+  const { setUser } = useContext(UserContext)
   const [ formData, setFormData ] = useState({
     email: "",
     password: ""
@@ -31,8 +34,8 @@ const LoginForm = ({ setCurrentUser }) => {
     }).then( (resp) => {
       if (resp.ok) {
         resp.json().then( (user) => {
-          setCurrentUser(user);
-          history.push("/");
+          setUser(user);
+          history.push(`/professors/${user.id}/courses`);
         });
       } else {
         resp.json().then( (json) => {
