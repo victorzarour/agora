@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 function SyllabusForm( { course, setCourse } ) {
+    const history = useHistory();
     const { id } = useParams();
     const [formData, setFormData] = useState({
         description: "",
@@ -25,7 +26,10 @@ function SyllabusForm( { course, setCourse } ) {
             body: JSON.stringify(formData),
         })
         .then(res => res.json())
-        .then(syllabus => setCourse({title: course.title, syllabus: syllabus}))
+        .then(syllabus => {
+            setCourse({title: course.title, syllabus: syllabus})
+            history.push(`/syllabus/${syllabus.id}`);
+        })
     };
 
     return(   

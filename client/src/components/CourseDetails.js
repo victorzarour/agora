@@ -24,7 +24,7 @@ function CourseDetails({  }){
         fetch(`/courses/${id}`, {
             method:'DELETE'
           })
-        history.push(`/courses`);
+        history.push(`/professors/${id}/courses`);
       }
 
     return (
@@ -32,15 +32,17 @@ function CourseDetails({  }){
 
             <h1>Welcome to {course.title}</h1>
 
-            {course.syllabus ? "" : 
-            <>
-                <h2>Add a syllabus description</h2> 
-                <SyllabusForm course={course} setCourse={setCourse}/>
-            </>}
-
-            <NavLink to={`/syllabus/${course.syllabus?.id}`}>
-                <p><span>Syllabus</span></p>
-            </NavLink>
+            {course.syllabus ?             
+            
+                <NavLink to={`/syllabus/${course.syllabus?.id}`}>
+                    <p><span>Syllabus</span></p>
+                </NavLink> 
+            
+            : 
+                <>
+                    <h2>Add a syllabus description</h2> 
+                    <SyllabusForm course={course} setCourse={setCourse}/>
+                </>}
 
             <NavLink to={`/course/${id}/assignments`}>
                 <p><span>Assignments</span></p>

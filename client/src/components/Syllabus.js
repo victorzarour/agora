@@ -60,6 +60,8 @@ function Syllabus( ){
 
     return (
         <div>
+            <h1>{syllabus.course.title}</h1>
+
             {syllabus.description}
             {entries.map(entry => {
                 return (

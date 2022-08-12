@@ -2,11 +2,13 @@ import { NavLink, useHistory } from 'react-router-dom'
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import { useEffect, useState } from "react";
+import CourseForm from './CourseForm'
 
 function CourseList( ){
     const { user } = useContext(UserContext)
     const [courses, setCourses] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
+    const [show, setShow] = useState(false)
 
     useEffect(() => {
         fetch(`/professors/${user?.id}/courses`)
@@ -18,6 +20,10 @@ function CourseList( ){
     }, [])
 
     if (!isLoaded) return <h2>Loading...</h2>
+
+    function toggleShowForm(){
+        setShow(!show)
+    }
 
     return (
         <div>
@@ -32,9 +38,10 @@ function CourseList( ){
                     )} )
              }
 
-            <NavLink to='/courses/add'>
-                <p>Add course</p>
-            </NavLink>
+            <button onClick={toggleShowForm}>Add a course</button>
+            <div className={show ? "show" : "hide"}> 
+                <CourseForm setCourses={setCourses} courses={courses}/>
+            </div>
 
          </div>
     )

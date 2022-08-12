@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/user";
 import { useHistory } from "react-router-dom";
 
-function CourseForm( ) {
+function CourseForm( { setCourses, courses } ) {
     const history = useHistory();
     const { user, setUser } = useContext(UserContext);
 
@@ -32,8 +32,10 @@ function CourseForm( ) {
             body: JSON.stringify(formData),
         })
         .then(res => res.json())
-        // .then(newCourse => onAddNewCourse(newCourse))
-        // history.push(`/courses/${newCourse.id}`)
+        .then(newCourse => {
+            setCourses([...courses, newCourse])
+            history.push(`/courses/${newCourse.id}`) 
+            })
 
     };
 
