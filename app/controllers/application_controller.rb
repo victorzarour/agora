@@ -6,7 +6,13 @@ class ApplicationController < ActionController::API
   
     # make current user actions
     def current_user
-      @current_user ||= Professor.find_by(id: session[:user_id]) || @current_user ||= Student.find_by(id: session[:user_id])
+      if (session[:is_prof] === 1)
+        @current_user ||= Professor.find_by(id: session[:user_id])
+        # byebug
+      else
+        @current_user ||= Student.find_by(id: session[:user_id])
+        # byebug
+      end
     end
   
   

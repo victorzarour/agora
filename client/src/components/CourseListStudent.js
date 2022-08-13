@@ -9,6 +9,7 @@ function CourseListStudent( ){
         const [courses, setCourses] = useState([])
         const [isLoaded, setIsLoaded] = useState(false)
         const [show, setShow] = useState(false)
+        const [displayError, setDisplayError] = useState(false)
         const [code, setCode] = useState("")
         const { id } = useParams();
 
@@ -42,15 +43,19 @@ function CourseListStudent( ){
                 },
                 body: JSON.stringify({code: code, student_id: id}),
             })
-            .then(res => res.json())
-            .then(newCourse => {
-                console.log(newCourse)
-                setCourses([...courses, newCourse.course])
-                setCode("")
-                // history.push(`/courses/${newCourse.course.id}`) 
-                })
-    
+            .then(res => {
+                if(res.ok){
+                    res.json().then(newCourse => {
+                    setCourses([...courses, newCourse.course])
+                    setCode("")})
+                } else {
+                    setShow(!show)
+                    setDisplayError(!displayError)
+                }
+            })
         };
+
+        // console.log(session[user_id])
 
     return (
         <div>
@@ -76,14 +81,21 @@ function CourseListStudent( ){
 
             <div className={show ? "show" : "hide"}> 
 
-            <form onSubmit={handleSubmit} autoComplete="off" >
-                <div>                        
-                    <input type="text" id="code" placeholder="code..." name="code" value={code} onChange={handleChange} />
-                </div>
+                <form onSubmit={handleSubmit} autoComplete="off" >
+                    <div>                        
+                        <input type="text" id="code" placeholder="code..." name="code" value={code} onChange={handleChange} />
+                    </div>
 
-                <button type="submit">Submit</button>
-            </form>
+                    <button type="submit">Submit</button>
+                </form>
 
+            </div>
+
+            <div className={displayError ? "show" : "hide"}>
+                <p>Please enter a valid course code.</p>
+                <button onClick={() =>{
+                    setShow(!show)
+                    setDisplayError(!displayError)}}>Try again.</button>
             </div>
 
          </div>
