@@ -1,24 +1,23 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react";
 
-function Assignment(){
+function Discussion(){
     const [isLoaded, setIsLoaded] = useState(false)
-    const [assignment, setAssignment] = useState([])
+    const [discussion, setDiscussion] = useState([])
     const [show, setShow] = useState(false)
     const history = useHistory();
     const { id } = useParams();
     const [formData, setFormData] = useState([]);
 
     useEffect(() => {
-        fetch(`/assignments/${id}`)
+        fetch(`/discussions/${id}`)
         .then((r) => r.json())
-        .then(assignment => {
-        setAssignment(assignment);
+        .then(discussion => {
+        setDiscussion(discussion);
         setIsLoaded(true)
         setFormData({
-            due_date: assignment.due_date,
-            title: assignment.title,
-            description: assignment.description
+            title: discussion.title,
+            body: discussion.body
         })
     })
     }, [id])
@@ -34,16 +33,16 @@ function Assignment(){
         setShow(!show)
     }
 
-    function handleDeleteAssignment(){
-        fetch(`/assignments/${id}`, {
+    function handleDeletediscussion(){
+        fetch(`/discussions/${id}`, {
             method:'DELETE'
           })
-        history.push(`/course/${assignment.course.id}/assignments`);
+        history.push(`/course/${discussion.course.id}/discussion_board`);
     }
 
     function handlePatch(e) {
         e.preventDefault()
-        fetch(`/assignments/${id}`, {
+        fetch(`/discussions/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +50,7 @@ function Assignment(){
             body: JSON.stringify(formData),
         })
         .then(res => res.json())
-        .then(updatedAssignment => setAssignment(updatedAssignment))
+        .then(updatedDiscussion => setDiscussion(updatedDiscussion))
         setShow(!show)
     }
 
@@ -59,23 +58,22 @@ function Assignment(){
     return (
         <>
             <div>
-                <p>{assignment.title}</p>
-                <p>{assignment.due_date}</p>
-                <p>{assignment.description}</p>
+                <p>{discussion.title}</p>
+                <p>{discussion.created_at.slice(0, 10)}</p>
+                <p>{discussion.body}</p>
             </div>
 
             
-            <button onClick={toggleEdit}>Edit Assignment</button>
-            <button onClick={handleDeleteAssignment}>Delete Assignment</button>
+            <button onClick={toggleEdit}>Edit discussion</button>
+            <button onClick={handleDeletediscussion}>Delete discussion</button>
 
             <form onSubmit={handlePatch} className={show ? "show" : "hide"}>
-                <input type="date" id="due_date" placeholder="due_date" name="due_date" value={formData.due_date} onChange={handleChange}></input>
                 <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
-                <input type="textarea" id="description" placeholder="description..." name="description" value={formData.description} onChange={handleChange}></input>
+                <input type="textarea" id="body" placeholder="body..." name="body" value={formData.body} onChange={handleChange}></input>
                 <button type='submit'>Submit</button>
             </form>
         </>
     )
 }
 
-export default Assignment
+export default Discussion

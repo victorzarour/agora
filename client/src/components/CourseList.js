@@ -1,4 +1,4 @@
-import { NavLink, useHistory } from 'react-router-dom'
+import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import { useEffect, useState } from "react";
@@ -9,9 +9,10 @@ function CourseList( ){
     const [courses, setCourses] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
     const [show, setShow] = useState(false)
+    const { id } = useParams();
 
     useEffect(() => {
-        fetch(`/professors/${user?.id}/courses`)
+        fetch(`/professors/${id}/courses`)
         .then((r) => r.json())
         .then(courses => {
         setCourses(courses);
@@ -30,11 +31,18 @@ function CourseList( ){
 
             Welcome, {user?.first_name}
 
-            {courses.map(course => {
+            {courses?.map(course => {
                 return (
-                    <NavLink to={`/courses/${course.id}`}>
-                        <p><span>{course.title}</span></p>
-                    </NavLink>
+                    <p>
+                        <NavLink to={`/courses/${course.id}`}>
+                            <span>{course.title}</span>
+                        </NavLink>
+                        <span>, {course.university}</span>
+                        {/* <span>, {course.department}</span> */}
+                        <span>, {course.days}</span>
+                        <span>, {course.code}</span>
+                    </p>
+
                     )} )
              }
 

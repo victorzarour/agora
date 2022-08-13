@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from "react";
+import SyllabusEntry from './SyllabusEntry';
 
 function Syllabus( ){
     const { id } = useParams();
@@ -58,19 +59,34 @@ function Syllabus( ){
         });
     };
 
+    function onDeleteEntry(deletedEntry){
+        const filteredEntries = entries.filter(entry => entry.id !== deletedEntry.id)
+        setEntries(filteredEntries)
+    }
+
+    function onUpdateEntry(updatedEntry){
+        console.log("fag")
+        const updatedEntries = entries.map(entry => {
+            if (entry.id === updatedEntry.id){
+                return updatedEntry
+            } else {
+                return entry
+            }
+        })
+        setEntries(updatedEntries)
+    }
+
     return (
         <div>
-            <h1>{syllabus.course.title}</h1>
+            <h1>{syllabus.course?.title}</h1>
 
             {syllabus.description}
             {entries.map(entry => {
                 return (
-                    <>
-                        <p>{entry.date}</p>
-                        <p>{entry.assignment}</p>
-                    </>
+                    <SyllabusEntry entry={entry} onDeleteEntry={onDeleteEntry} onUpdateEntry={onUpdateEntry}/>
                 )
             })}
+
             <form onSubmit={handleSubmit}>
                 <input type="date" id="date" placeholder="date..." name="date" value={formData.date} onChange={handleChange}></input>
                 <input type="text" id="assignment" placeholder="assignment..." name="assignment" value={formData.assignment} onChange={handleChange}></input>

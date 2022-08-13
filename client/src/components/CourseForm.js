@@ -12,7 +12,8 @@ function CourseForm( { setCourses, courses } ) {
         title: "",
         professor_id: user.id,
         department: "",
-        days: ""
+        days: "",
+        code: Math.floor(Math.random() * 100000)
       });
 
     function handleChange(e){
@@ -59,6 +60,10 @@ function CourseForm( { setCourses, courses } ) {
 
                 <div>                        
                     <input type="text" id="days" placeholder="Meeting Days..." name="days" value={formData.days} onChange={handleChange}/>
+                </div>
+
+                <div>                        
+                    <input type="text" id="code" placeholder="code..." name="code" value={formData.code} />
                 </div>
 
                 <button type="submit">Submit</button>

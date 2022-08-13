@@ -3,6 +3,7 @@ import SignupForm from "./SignupForm";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import { NavLink, useHistory } from 'react-router-dom'
+import SignupFormStudent from "./SignupFormStudent";
 
 function Home() {
     const history = useHistory();
@@ -24,6 +25,7 @@ function Home() {
     return (
         <div>
             <SignupForm />
+            <SignupFormStudent />
             <LoginForm />
         </div>
     ); 

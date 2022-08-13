@@ -21,16 +21,17 @@ function CourseDetails({  }){
     if (!isLoaded) return <h2>Loading...</h2>
 
     function handleDeleteCourse() {
+
         fetch(`/courses/${id}`, {
             method:'DELETE'
           })
-        history.push(`/professors/${id}/courses`);
+        history.push(`/professors/${course.professor.id}/courses`);
       }
 
     return (
         <div>
 
-            <h1>Welcome to {course.title}</h1>
+            <h1>Welcome to {course.title} ({course.code})</h1>
 
             {course.syllabus ?             
             
@@ -47,6 +48,16 @@ function CourseDetails({  }){
             <NavLink to={`/course/${id}/assignments`}>
                 <p><span>Assignments</span></p>
             </NavLink>
+
+            <NavLink to={`/course/${id}/announcements`}>
+                <p><span>Announcements</span></p>
+            </NavLink>
+
+            <NavLink to={`/course/${id}/discussion_board`}>
+                <p><span>Discussion Board</span></p>
+            </NavLink>
+
+
 
             <button onClick={handleDeleteCourse}>Delete</button>
 

@@ -30,7 +30,7 @@ function Navbar(){
 
               { user ? 
                 <>
-                  <NavLink to={`/professors/${user.id}/courses`}>
+                  <NavLink to={user.admin ? `/professors/${user.id}/courses` : `/students/${user.id}/courses`}>
                     <p><span>My Courses</span></p>
                   </NavLink>
 

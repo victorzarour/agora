@@ -16,7 +16,7 @@ class AssignmentsController < ApplicationController
     end
 
     def update
-        @assignment.update!(syllabus_entry_params)
+        @assignment.update!(assignment_params)
         render json: @assignment, status: :ok
     end
 

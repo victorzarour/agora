@@ -25,16 +25,25 @@ class CoursesController < ApplicationController
         head :no_content
     end
 
-
     def course_assignments
         course = Course.find(params[:id])
         render json: course.assignments
+    end
+
+    def course_announcements
+        course = Course.find(params[:id])
+        render json: course.announcements.order(:created_at)
+    end
+
+    def course_discussions
+        course = Course.find(params[:id])
+        render json: course.discussions.order(:created_at)
     end
     
     private
 
     def course_params
-        params.permit(:university, :title, :professor_id, :department, :days)
+        params.permit(:university, :title, :professor_id, :department, :days, :code)
     end
 
     def find_course

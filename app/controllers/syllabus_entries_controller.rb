@@ -27,7 +27,7 @@ class SyllabusEntriesController < ApplicationController
 
     def syllabus_syllabus_entries
         syllabus = Syllabus.find(params[:id])
-        render json: syllabus.syllabus_entries
+        render json: syllabus.syllabus_entries.order(:date)
     end
     
     private
@@ -36,7 +36,7 @@ class SyllabusEntriesController < ApplicationController
         params.permit(:syllabus_id, :date, :assignment)
     end
 
-    def find_syllabusEntry
+    def find_syllabus_entry
         @syllabusEntry = SyllabusEntry.find(params[:id])
     end
 end

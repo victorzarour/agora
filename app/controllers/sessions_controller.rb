@@ -4,10 +4,16 @@ class SessionsController < ApplicationController
 
     def create
       professor = Professor.find_by(email: params[:email])
+      student = Student.find_by(email: params[:email])
   
       if professor&.authenticate(params[:password])
         session[:user_id] = professor.id
         render json: professor, status: :ok
+
+      elsif student&.authenticate(params[:password])
+        session[:user_id] = student.id
+        render json: student, status: :ok
+        
       else
         render json: { errors: 'Invalid Password or Username'}, status: :unauthorized
       end

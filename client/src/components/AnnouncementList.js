@@ -1,24 +1,23 @@
 import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState } from "react";
 
-function AssignmentList( ){
+function AnnouncementList( ){
     const [isLoaded, setIsLoaded] = useState(false)
-    const [assignments, setAssignments] = useState([])
+    const [announcements, setAnnouncements] = useState([])
     const { id } = useParams();
 
     const [formData, setFormData] = useState({
-        due_date: "",
         title: "",
-        description: "",
+        body: "",
         course_id: id
       });
     
 
     useEffect(() => {
-        fetch(`/courses/${id}/assignments`)
+        fetch(`/courses/${id}/announcements`)
         .then((r) => r.json())
-        .then(assignments => {
-        setAssignments(assignments);
+        .then(announcements => {
+        setAnnouncements(announcements);
         setIsLoaded(true)
     })
     }, [id])
@@ -32,7 +31,7 @@ function AssignmentList( ){
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch('/assignments', {
+        fetch('/announcements', {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -41,11 +40,10 @@ function AssignmentList( ){
             body: JSON.stringify(formData),
         })
         .then((resp) => resp.json())
-        .then((assignment) => {setAssignments([...assignments, assignment]);
+        .then((announcement) => {setAnnouncements([...announcements, announcement]);
         setFormData({
-            due_date: "",
             title: "",
-            description: "",
+            body: "",
             course_id: id
         });
         });
@@ -54,14 +52,14 @@ function AssignmentList( ){
 
     return (
         <div>
-            <h1>Assignments</h1>
-                {assignments.map(assignment => {
+            <h1>Announcements</h1>
+                {announcements?.map(announcement => {
                     return (
                         <p>
-                            <NavLink to={`/assignments/${assignment.id}`}>
-                                <span>{assignment.title}</span>
+                            <NavLink to={`/announcements/${announcement.id}`}>
+                                <span>{announcement.title}</span>
                             </NavLink>
-                            <span> - Due date: {assignment.due_date}</span>
+                            <span> - {announcement.created_at.slice(0, 10)}</span>
                         </p>
 
                     )
@@ -69,11 +67,10 @@ function AssignmentList( ){
                 
     
 
-            <h2>Add an assignment</h2>
+            <h2>Add an announcement</h2>
             <form onSubmit={handleSubmit}>
-                <input type="date" id="due_date" placeholder="due_date" name="due_date" value={formData.due_date} onChange={handleChange}></input>
                 <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
-                <input type="textarea" id="description" placeholder="description..." name="description" value={formData.description} onChange={handleChange}></input>
+                <input type="textarea" id="body" placeholder="body..." name="body" value={formData.body} onChange={handleChange}></input>
                 <button type='submit'>Submit</button>
             </form>
 
@@ -81,4 +78,4 @@ function AssignmentList( ){
     )
 }
 
-export default AssignmentList
+export default AnnouncementList

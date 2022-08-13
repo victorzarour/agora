@@ -1,5 +1,3 @@
-class ProfessorSerializer < ActiveModel::Serializer
+class StudentSerializer < ActiveModel::Serializer
   attributes :id, :first_name, :last_name, :email, :password_digest, :admin
-
-  has_many :courses
 end

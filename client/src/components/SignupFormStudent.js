@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 
-function SignupForm( ){
+function SignupFormStudent( ){
 
   const { setUser } = useContext(UserContext)
   const [formData, setFormData] = useState({
@@ -12,11 +12,12 @@ function SignupForm( ){
     last_name: "",
     password: "",
     confirmPassword: "",
+    admin: false
   });
 
   const history = useHistory();
 
-  const { first_name, last_name, email, password, confirmPassword } = formData;
+  const { first_name, last_name, email, password, confirmPassword, admin } = formData;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,7 +27,7 @@ function SignupForm( ){
       return;
     }
 
-    fetch('/professors', {
+    fetch('/students', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,9 +35,9 @@ function SignupForm( ){
       body: JSON.stringify(formData),
     }).then((response) => {
       if (response.ok) {
-        response.json().then((professor) => {
-          setUser(professor)
-          history.push(`/professors/${professor.id}/courses`);
+        response.json().then((student) => {
+          setUser(student)
+          history.push(`/students/${student.id}/courses`);
         });
       } else {
         response.json().then((resp) => alert(resp.errors));
@@ -52,9 +53,9 @@ function SignupForm( ){
 
   return (
 
-      <form className="signUpForm" onSubmit={ handleSubmit }>
+      <form className="signUpFormStudent" onSubmit={ handleSubmit }>
         <h1>Don't have an account?</h1>
-        <span>If you're a professor, create an account your email and password here</span>
+        <span>If you're a student, create an account your email and password here</span>
 
 
         <input 
@@ -113,4 +114,4 @@ function SignupForm( ){
   );
 };
 
-export default SignupForm;
+export default SignupFormStudent;
