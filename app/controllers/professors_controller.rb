@@ -7,6 +7,8 @@ class ProfessorsController < ApplicationController
   
     def create
       professor = Professor.create!(professor_params)
+      session[:user_id] = professor.id
+      session[:is_prof] = 1
       render json: professor, status: :created
     end
 

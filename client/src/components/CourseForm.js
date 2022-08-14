@@ -10,7 +10,7 @@ function CourseForm( { setCourses, courses } ) {
     const [formData, setFormData] = useState({
         university: "",
         title: "",
-        professor_id: user.id,
+        professor_id: user?.id,
         department: "",
         days: "",
         code: Math.floor(Math.random() * 100000)

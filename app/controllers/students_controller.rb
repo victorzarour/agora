@@ -7,6 +7,8 @@ class StudentsController < ApplicationController
   
     def create
       student = Student.create!(student_params)
+      session[:user_id] = student.id
+      session[:is_prof] = 0
       render json: student, status: :created
     end
 
