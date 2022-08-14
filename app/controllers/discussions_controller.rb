@@ -24,6 +24,11 @@ class DiscussionsController < ApplicationController
         @discussion.destroy
         head :no_content
     end
+
+    def discussion_discussion_posts
+        discussion = Discussion.find(params[:id])
+        render json: discussion.discussion_posts.order(:created_at)
+    end
     
     private
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :discussion_posts
   resources :course_students
   resources :students
   resources :discussions
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   get '/courses/:id/discussions', to: 'courses#course_discussions'
   get '/professors/:id/courses', to: 'professors#professor_courses'
   get '/students/:id/courses', to: 'students#student_courses'
+  get '/discussions/:id/discussion_posts', to: 'discussions#discussion_discussion_posts'
 
   
   get '*path',

@@ -1,5 +1,7 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react";
+import DiscussionPost from './DiscussionPost';
+import DiscussionPostList from './DiscussionPostList';
 
 function Discussion(){
     const [isLoaded, setIsLoaded] = useState(false)
@@ -8,6 +10,7 @@ function Discussion(){
     const history = useHistory();
     const { id } = useParams();
     const [formData, setFormData] = useState([]);
+
 
     useEffect(() => {
         fetch(`/discussions/${id}`)
@@ -54,7 +57,6 @@ function Discussion(){
         setShow(!show)
     }
 
-
     return (
         <>
             <div>
@@ -72,6 +74,9 @@ function Discussion(){
                 <input type="textarea" id="body" placeholder="body..." name="body" value={formData.body} onChange={handleChange}></input>
                 <button type='submit'>Submit</button>
             </form>
+
+            <DiscussionPostList discussionId={id}/>
+
         </>
     )
 }

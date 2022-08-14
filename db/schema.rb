@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_13_121406) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_14_112423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_121406) do
     t.datetime "updated_at", null: false
     t.integer "code"
     t.index ["professor_id"], name: "index_courses_on_professor_id"
+  end
+
+  create_table "discussion_posts", force: :cascade do |t|
+    t.bigint "discussion_id", null: false
+    t.bigint "student_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discussion_id"], name: "index_discussion_posts_on_discussion_id"
+    t.index ["student_id"], name: "index_discussion_posts_on_student_id"
   end
 
   create_table "discussions", force: :cascade do |t|
@@ -105,6 +115,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_121406) do
   add_foreign_key "course_students", "courses"
   add_foreign_key "course_students", "students"
   add_foreign_key "courses", "professors"
+  add_foreign_key "discussion_posts", "discussions"
+  add_foreign_key "discussion_posts", "students"
   add_foreign_key "discussions", "courses"
   add_foreign_key "syllabus_entries", "syllabuses"
   add_foreign_key "syllabuses", "courses"

@@ -52,7 +52,7 @@ function Syllabus( ){
         .then((resp) => resp.json())
         .then((entry) => {setEntries([...entries, entry]);
         setFormData({
-            date: "",
+            date: entry.date,
             assignment: "",
             syllabus_id: id
         });
