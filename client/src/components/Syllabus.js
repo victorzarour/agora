@@ -65,7 +65,6 @@ function Syllabus( ){
     }
 
     function onUpdateEntry(updatedEntry){
-        console.log("fag")
         const updatedEntries = entries.map(entry => {
             if (entry.id === updatedEntry.id){
                 return updatedEntry

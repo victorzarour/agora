@@ -39,11 +39,27 @@ function DiscussionPostList( { discussionId }) {
         .then((discussionPost) => {setDiscussionPosts([...discussionPosts, discussionPost]);
         setPostData({
             discussion_id: discussionId,
-            student_id: user?.id,
+            student_id: discussionPost.student?.id,
             body: ""
         });
         });
     };
+
+    function onDeletePost(deletedDiscussionPost){  
+        const filteredDiscussionPosts = discussionPosts.filter(discussionPost => discussionPost.id !== deletedDiscussionPost.id)
+        setDiscussionPosts(filteredDiscussionPosts)
+    }
+
+    function onUpdatePost(updatedDiscussionPost){  
+        const updatedDiscussionPosts = discussionPosts.map(discussionPost => {
+            if (discussionPost.id === updatedDiscussionPost.id){
+                return updatedDiscussionPost
+            } else {
+                return discussionPost
+            }
+        })
+        setDiscussionPosts(updatedDiscussionPosts)
+    }
 
 
     return (
@@ -55,7 +71,7 @@ function DiscussionPostList( { discussionId }) {
                 <button type='submit'>Submit</button>
             </form>
             
-            {discussionPosts.map(discussionPost => <DiscussionPost discussionPost={discussionPost}/>)}
+            {discussionPosts.map(discussionPost => <DiscussionPost discussionPost={discussionPost} onDeletePost={onDeletePost} onUpdatePost={onUpdatePost}/>)}
         </div>
     )
 }
