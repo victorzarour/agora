@@ -60,7 +60,7 @@ function CourseDetails({  }){
                 <p><span>Discussion Board</span></p>
             </NavLink>
 
-            {user.admin ? 
+            {user?.admin ? 
                 <>
                 <NavLink to={`/course/${id}/students`}>
                     <p><span>Students</span></p>
