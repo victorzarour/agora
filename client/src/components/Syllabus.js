@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 import SyllabusEntry from './SyllabusEntry';
 
 function Syllabus( ){
@@ -7,6 +9,7 @@ function Syllabus( ){
     const [isLoaded, setIsLoaded] = useState(false)
     const [syllabus, setSyllabus] = useState([])
     const [entries, setEntries] = useState([])
+    const { user } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         date: "",
@@ -86,11 +89,20 @@ function Syllabus( ){
                 )
             })}
 
-            <form onSubmit={handleSubmit}>
-                <input type="date" id="date" placeholder="date..." name="date" value={formData.date} onChange={handleChange}></input>
-                <input type="text" id="assignment" placeholder="assignment..." name="assignment" value={formData.assignment} onChange={handleChange}></input>
-                <button type='submit'>Submit</button>
-            </form>
+            {user?.admin ?
+
+                <form onSubmit={handleSubmit}>
+                    <input type="date" id="date" placeholder="date..." name="date" value={formData.date} onChange={handleChange}></input>
+                    <input type="text" id="assignment" placeholder="assignment..." name="assignment" value={formData.assignment} onChange={handleChange}></input>
+                    <button type='submit'>Submit</button>
+                </form>
+
+            :
+
+                null
+
+            }
+
 
          </div>
     )

@@ -1,6 +1,7 @@
 import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react";
-import DiscussionPost from './DiscussionPost';
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 import DiscussionPostList from './DiscussionPostList';
 
 function Discussion(){
@@ -9,6 +10,7 @@ function Discussion(){
     const [show, setShow] = useState(false)
     const history = useHistory();
     const { id } = useParams();
+    const { user } = useContext(UserContext);
     const [formData, setFormData] = useState([]);
 
 
@@ -65,15 +67,21 @@ function Discussion(){
                 <p>{discussion.body}</p>
             </div>
 
-            
-            <button onClick={toggleEdit}>Edit discussion</button>
-            <button onClick={handleDeletediscussion}>Delete discussion</button>
+            {user?.admin ?
+                <>
+                <button onClick={toggleEdit}>Edit discussion</button>
+                <button onClick={handleDeletediscussion}>Delete discussion</button>
 
-            <form onSubmit={handlePatch} className={show ? "show" : "hide"}>
-                <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
-                <input type="textarea" id="body" placeholder="body..." name="body" value={formData.body} onChange={handleChange}></input>
-                <button type='submit'>Submit</button>
-            </form>
+                <form onSubmit={handlePatch} className={show ? "show" : "hide"}>
+                    <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
+                    <input type="textarea" id="body" placeholder="body..." name="body" value={formData.body} onChange={handleChange}></input>
+                    <button type='submit'>Submit</button>
+                </form>
+                </>
+            :
+                null
+            }
+
 
             <DiscussionPostList discussionId={id}/>
 

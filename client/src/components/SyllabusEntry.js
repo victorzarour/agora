@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 
 function SyllabusEntry( { entry, onDeleteEntry, onUpdateEntry } ){
     const [show, setShow] = useState(false)
+    const { user } = useContext(UserContext);
     const [formData, setFormData] = useState({
         date: entry.date,
         assignment: entry.assignment
@@ -39,16 +42,24 @@ function SyllabusEntry( { entry, onDeleteEntry, onUpdateEntry } ){
 
 
     return (
-        <p>
-            {entry.date} -- {entry.assignment}   
-            <i className="fa-solid fa-xmark" onClick={handleDeleteEntry}></i>
-            <i class="fa-solid fa-pen-to-square" onClick={toggleShowForm}></i>
-            <form className={show ? "show" : "hide"} onSubmit={handlePatch}>
-                <input type="date" id="date" placeholder="date..." name="date" value={formData.date} onChange={handleChange}></input>
-                <input type="text" id="assignment" placeholder="assignment..." name="assignment" value={formData.assignment} onChange={handleChange}></input>
-                <button type='submit'>Submit</button>
-            </form>
-         </p>
+        <div>
+            <p>{entry.date} -- {entry.assignment}</p>
+
+            {user?.admin ? 
+                <>
+                    <i className="fa-solid fa-xmark" onClick={handleDeleteEntry}></i>
+                    <i class="fa-solid fa-pen-to-square" onClick={toggleShowForm}></i>
+                    <form className={show ? "show" : "hide"} onSubmit={handlePatch}>
+                        <input type="date" id="date" placeholder="date..." name="date" value={formData.date} onChange={handleChange}></input>
+                        <input type="text" id="assignment" placeholder="assignment..." name="assignment" value={formData.assignment} onChange={handleChange}></input>
+                        <button type='submit'>Submit</button>
+                    </form>
+                </>
+            :
+             null
+            }
+            
+         </div>
     )
 }
 

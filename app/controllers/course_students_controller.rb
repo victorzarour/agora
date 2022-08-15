@@ -1,6 +1,7 @@
 class CourseStudentsController < ApplicationController
     before_action :find_course_student, only: [:show, :update, :destroy]
-    skip_before_action :authorized_user
+    # skip_before_action :authorized_user
+    skip_before_action :admin_user, only: [:index, :show, :create]
 
     def index
         render json: CourseStudent.all

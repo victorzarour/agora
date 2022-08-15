@@ -37,6 +37,8 @@ function Navbar(){
                   <NavLink to='/logout' onClick={ handleLogout }>
                     <p><span>Logout</span></p>
                   </NavLink>
+
+                  {user.first_name}
                 </>
                     :
                 ""

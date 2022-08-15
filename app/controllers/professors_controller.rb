@@ -1,5 +1,6 @@
 class ProfessorsController < ApplicationController
-    skip_before_action :authorized_user, only: [:show, :create, :professor_courses]
+    skip_before_action :authorized_user
+    skip_before_action :admin_user, only: [:show, :create]
 
     def show
       render json: current_user, status: :ok

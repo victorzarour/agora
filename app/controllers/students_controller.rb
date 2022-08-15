@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-    skip_before_action :authorized_user, only: [:show, :create, :student_courses]
+    skip_before_action :authorized_user, :admin_user
 
     def show
       render json: current_user, status: :ok

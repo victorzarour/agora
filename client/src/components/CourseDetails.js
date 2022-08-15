@@ -1,5 +1,7 @@
 import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 import SyllabusForm from './SyllabusForm';
 
 function CourseDetails({  }){
@@ -8,6 +10,7 @@ function CourseDetails({  }){
     const [course, setCourse] = useState([])
     const history = useHistory();
     const { id } = useParams();
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         fetch(`/courses/${id}`)
@@ -57,11 +60,16 @@ function CourseDetails({  }){
                 <p><span>Discussion Board</span></p>
             </NavLink>
 
-
-
-            <button onClick={handleDeleteCourse}>Delete</button>
-
-             
+            {user.admin ? 
+                <>
+                <NavLink to={`/course/${id}/students`}>
+                    <p><span>Students</span></p>
+                </NavLink>
+                <button onClick={handleDeleteCourse}>Delete</button>
+                </>
+            :
+                null
+            }
 
         </div>
     )

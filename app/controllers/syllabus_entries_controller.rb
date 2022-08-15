@@ -1,6 +1,7 @@
 class SyllabusEntriesController < ApplicationController
     before_action :find_syllabus_entry, only: [:show, :update, :destroy]
-    skip_before_action :authorized_user
+    # skip_before_action :authorized_user
+    skip_before_action :admin_user, only: [:index, :show, :syllabus_syllabus_entries]
 
     def index
         render json: SyllabusEntry.all

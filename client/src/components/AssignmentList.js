@@ -1,10 +1,13 @@
 import { useParams, NavLink } from 'react-router-dom'
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 
 function AssignmentList( ){
     const [isLoaded, setIsLoaded] = useState(false)
     const [assignments, setAssignments] = useState([])
     const { id } = useParams();
+    const { user } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
         due_date: "",
@@ -68,14 +71,20 @@ function AssignmentList( ){
                 })}
                 
     
+            {user?.admin ?
+                <>
+                    <h2>Add an assignment</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input type="date" id="due_date" placeholder="due_date" name="due_date" value={formData.due_date} onChange={handleChange}></input>
+                        <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
+                        <input type="textarea" id="description" placeholder="description..." name="description" value={formData.description} onChange={handleChange}></input>
+                        <button type='submit'>Submit</button>
+                    </form>
+                </>
+            :
+                null
+            }
 
-            <h2>Add an assignment</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="date" id="due_date" placeholder="due_date" name="due_date" value={formData.due_date} onChange={handleChange}></input>
-                <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
-                <input type="textarea" id="description" placeholder="description..." name="description" value={formData.description} onChange={handleChange}></input>
-                <button type='submit'>Submit</button>
-            </form>
 
          </div>
     )

@@ -1,6 +1,7 @@
 class DiscussionPostsController < ApplicationController
     before_action :find_discussion_post, only: [:show, :update, :destroy]
-    skip_before_action :authorized_user
+    # skip_before_action :authorized_user
+    skip_before_action :admin_user
 
     def index
         render json: DiscussionPost.all

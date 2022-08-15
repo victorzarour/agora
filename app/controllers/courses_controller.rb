@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
     before_action :find_course, only: [:show, :update, :destroy]
-    skip_before_action :authorized_user
+    # skip_before_action :authorized_user
+    skip_before_action :admin_user, only: [:index, :show, :course_assignments, :course_announcements, :course_discussions]
 
     def index
         render json: Course.all
@@ -38,6 +39,11 @@ class CoursesController < ApplicationController
     def course_discussions
         course = Course.find(params[:id])
         render json: course.discussions.order(:created_at)
+    end
+
+    def course_course_students
+        course = Course.find(params[:id])
+        render json: course.students.order(:last_name)
     end
     
     private

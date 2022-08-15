@@ -6,6 +6,7 @@ import AssignmentList from "./components/AssignmentList";
 import CourseDetails from "./components/CourseDetails";
 import CourseForm from "./components/CourseForm";
 import CourseList from "./components/CourseList";
+import StudentList from "./components/StudentList";
 import CourseListStudent from "./components/CourseListStudent";
 import Discussion from "./components/Discussion";
 import DiscussionList from "./components/DiscussionList";
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route exact path="/course/:id/announcements">
             <AnnouncementList />
+          </Route>
+          <Route exact path="/course/:id/students">
+            <StudentList />
           </Route>
           <Route exact path="/table">
             <Table />

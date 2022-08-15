@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-    before_action :authorized_user
+    before_action :authorized_user, :admin_user
     include ActionController::Cookies
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid
@@ -13,14 +13,16 @@ class ApplicationController < ActionController::API
         @current_user ||= Student.find_by(id: session[:user_id])
         # byebug
       end
-    end
-  
+    end  
   
     # make authorized current user action
     def authorized_user
       render json: { error: "Not authorized" }, status: :unauthorized unless current_user
     end
-  
+
+    def admin_user
+      render json: { error: "Not authorized" }, status: :unauthorized unless current_user.admin
+    end
   
     private
   

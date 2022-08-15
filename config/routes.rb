@@ -15,11 +15,16 @@ Rails.application.routes.draw do
   get '/authorized_user', to: 'professors#show'
 
   get '/syllabuses/:id/syllabus_entries', to: 'syllabus_entries#syllabus_syllabus_entries'
+  
   get '/courses/:id/assignments', to: 'courses#course_assignments'
   get '/courses/:id/announcements', to: 'courses#course_announcements'
   get '/courses/:id/discussions', to: 'courses#course_discussions'
+  get '/courses/:id/students', to: 'courses#course_course_students'
+
   get '/professors/:id/courses', to: 'professors#professor_courses'
+  
   get '/students/:id/courses', to: 'students#student_courses'
+  
   get '/discussions/:id/discussion_posts', to: 'discussions#discussion_discussion_posts'
 
   

@@ -5,4 +5,5 @@ class CourseSerializer < ActiveModel::Serializer
   has_many :assignments
   has_many :announcements
   has_many :discussions
+  has_many :students, through: :course_students
 end

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/user";
 
 function DiscussionPost({ discussionPost, onDeletePost, onUpdatePost }) {
     const [show, setShow] = useState(false)
+    const { user } = useContext(UserContext);
     const { id, created_at, body, student } = discussionPost 
     const [updatedBody, setUpdatedBody] = useState(body)
 
@@ -39,13 +42,21 @@ function DiscussionPost({ discussionPost, onDeletePost, onUpdatePost }) {
             <p>{created_at}</p>
             <p>By: {student?.first_name} {student?.last_name}</p>
             <p>{body}</p>
-            <button onClick={handleDeletePost}>Delete</button>
-            <button onClick={toggleShowForm}>Edit</button>
 
-            <form className={show ? "show" : "hide"} onSubmit={handleUpdatePost}>
-                <input type="textarea" id="body" placeholder="body..." name="body" value={updatedBody} onChange={handlePostChange}></input>
-                <button type='submit'>Submit</button>
-            </form>
+            {user?.id === student.id ?
+                <>
+                <button onClick={handleDeletePost}>Delete</button>
+                <button onClick={toggleShowForm}>Edit</button>
+
+                <form className={show ? "show" : "hide"} onSubmit={handleUpdatePost}>
+                    <input type="textarea" id="body" placeholder="body..." name="body" value={updatedBody} onChange={handlePostChange}></input>
+                    <button type='submit'>Submit</button>
+                </form>              
+                </>
+            :
+                null
+            }
+
         </div>
     )
 }

@@ -1,6 +1,7 @@
 class AnnouncementsController < ApplicationController
     before_action :find_announcement, only: [:show, :update, :destroy]
-    skip_before_action :authorized_user
+    # skip_before_action :authorized_user
+    skip_before_action :admin_user, only: [:index, :show]
 
     def index
         render json: Announcement.all
