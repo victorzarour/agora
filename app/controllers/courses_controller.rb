@@ -43,7 +43,7 @@ class CoursesController < ApplicationController
 
     def course_course_students
         course = Course.find(params[:id])
-        render json: course.students.order(:last_name)
+        render json: course.course_students
     end
     
     private

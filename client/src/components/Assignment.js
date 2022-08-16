@@ -29,7 +29,7 @@ function Assignment(){
     }, [id])
 
     useEffect(() => {
-        fetch(`/submissions`)
+        fetch(`/assignments/${id}/submissions`)
         .then((r) => r.json())
         .then(submissions => {
         setSubmissions(submissions);
@@ -85,7 +85,7 @@ function Assignment(){
         .catch((error) => console.error(error))
      }
 
-
+     const destructuredIds = submissions.map(submission => submission.student_id)
 
     return (
         <>
@@ -106,26 +106,47 @@ function Assignment(){
                         <input type="textarea" id="description" placeholder="description..." name="description" value={formDataPatch.description} onChange={handleChange}></input>
                         <button type='submit'>Submit</button>
                     </form>
+
+                    <div>
+                        {submissions.map(submission => {
+                            return (
+                                <div>
+                                    <span>{submission.student_name} - </span><a download href={submission.file_url}>{submission.file_name}</a>
+                                </div>
+                                )
+                            })}
+                    </div>
+
                 </>
             :
-                null
+ 
+                destructuredIds.indexOf(user?.id) !== -1 ? 
+                    <>
+                    <p>Thank you for submitting!</p>
+                    <div>
+                    {submissions.map(submission => submission.student_id === user?.id ? 
+                        <a download href={submission.file_url}>{submission.file_name}</a>
+                        :
+                        null
+                    )}
+                    </div>
+                    </>
+                :
+                <>
+                <p>Submit your assignment here:</p>
+                <form onSubmit={handleSubmit}>
+                    <input type="file" id="file" name="file"/>
+                    <button type='submit'>Submit</button>
+                </form>  
+                </>          
+                
             }
 
-            Submit your assignment here:
-            <form onSubmit={handleSubmit}>
-                <input type="file" id="file" name="file"/>
-                <button type='submit'>Submit</button>
-            </form>
 
-            {submissions.map(submission => {
-                return (
-                    <div>
-                        <a download href={submission.file_url}>{submission.file_name}</a>
-                    </div>
-                )
-            })}
 
-            <a download href="https://agora-learn.s3.amazonaws.com/y69z1rtqxo5f7ha7kz5erp48ojpm">Extra Test</a>
+
+
+
         </>
     )
 }

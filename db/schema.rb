@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_15_152501) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_16_191235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_152501) do
     t.index ["course_id"], name: "index_discussions_on_course_id"
   end
 
+  create_table "grades", force: :cascade do |t|
+    t.bigint "submission_id", null: false
+    t.string "letter_grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_grades_on_submission_id"
+  end
+
   create_table "professors", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -157,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_152501) do
   add_foreign_key "discussion_posts", "discussions"
   add_foreign_key "discussion_posts", "students"
   add_foreign_key "discussions", "courses"
+  add_foreign_key "grades", "submissions"
   add_foreign_key "submissions", "assignments"
   add_foreign_key "submissions", "students"
   add_foreign_key "syllabus_entries", "syllabuses"

@@ -1,6 +1,9 @@
 class Submission < ApplicationRecord
+  # validates :file, uniqueness: { scope: :student_id }
   belongs_to :assignment
   belongs_to :student
+  has_one :course_student, through: :student
+  has_one :grade
 
   has_one_attached :file
 
@@ -10,6 +13,10 @@ class Submission < ApplicationRecord
 
   def file_name
     file.blob.filename
+  end
+
+  def student_name
+    "#{student.last_name}, #{student.first_name}"
   end
 
 end

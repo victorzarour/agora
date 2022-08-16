@@ -1,7 +1,7 @@
 class AssignmentsController < ApplicationController    
-    before_action :find_assignment, only: [:show, :update, :destroy]
+    before_action :find_assignment, only: [:show, :update, :destroy, :assignment_submissions]
     # skip_before_action :authorized_user
-    skip_before_action :admin_user, only: [:index, :show]
+    skip_before_action :admin_user, only: [:index, :show, :assignment_submissions]
 
     def index
         render json: Assignment.all
@@ -24,6 +24,10 @@ class AssignmentsController < ApplicationController
     def destroy
         @assignment.destroy
         head :no_content
+    end
+
+    def assignment_submissions
+        render json: @assignment.submissions
     end
     
     private

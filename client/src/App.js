@@ -14,6 +14,7 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Syllabus from "./components/Syllabus";
 import Table from "./Table";
+import StudentDetails from "./components/StudentDetails";
 
 function App() {
 
@@ -57,6 +58,9 @@ function App() {
           </Route>
           <Route exact path="/course/:id/students">
             <StudentList />
+          </Route>
+          <Route exact path="/course/:id/students/:id">
+            <StudentDetails />
           </Route>
           <Route exact path="/table">
             <Table />

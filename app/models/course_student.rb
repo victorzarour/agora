@@ -3,4 +3,10 @@ class CourseStudent < ApplicationRecord
 
   belongs_to :course
   belongs_to :student
+  has_many :submissions, through: :student
+
+  def course_student_info
+    "#{student.last_name}, #{student.first_name}"
+  end
+
 end

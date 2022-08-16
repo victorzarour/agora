@@ -20,7 +20,9 @@ function StudentList(){
         <div>
             {courseStudents.map(courseStudent => {
                 return (
-                    `${courseStudent.last_name}, ${courseStudent.first_name}`
+                    <NavLink to={`/course/${id}/students/${courseStudent.id}`}>
+                        <p>{courseStudent.course_student_info}</p>
+                    </NavLink>
                 )
             })}
         </div>
