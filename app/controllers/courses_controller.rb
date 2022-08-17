@@ -45,6 +45,11 @@ class CoursesController < ApplicationController
         course = Course.find(params[:id])
         render json: course.course_students
     end
+
+    def course_course_documents
+        course = Course.find(params[:id])
+        render json: course.course_documents
+    end
     
     private
 

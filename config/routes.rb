@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :course_documents
   resources :grades
   resources :submissions
   resources :discussion_posts
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   get '/courses/:id/announcements', to: 'courses#course_announcements'
   get '/courses/:id/discussions', to: 'courses#course_discussions'
   get '/courses/:id/students', to: 'courses#course_course_students'
+  get '/courses/:id/course_documents', to: 'courses#course_course_documents'
 
   get '/professors/:id/courses', to: 'professors#professor_courses'
   

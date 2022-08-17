@@ -16,6 +16,7 @@ import Syllabus from "./components/Syllabus";
 import Table from "./Table";
 import StudentDetails from "./components/StudentDetails";
 import StudentGrades from "./components/StudentGrades";
+import CourseDocumentList from "./components/CourseDocumentList";
 
 function App() {
 
@@ -65,6 +66,9 @@ function App() {
           </Route>
           <Route exact path="/course/:id/grades">
             <StudentGrades />
+          </Route>
+          <Route exact path="/course/:id/documents">
+            <CourseDocumentList />
           </Route>
           <Route exact path="/table">
             <Table />
