@@ -1,7 +1,7 @@
 class CourseDocumentsController < ApplicationController
     before_action :find_course_document, only: [:show, :update, :destroy]
     # skip_before_action :authorized_user
-        skip_before_action :admin_user
+    skip_before_action :admin_user
 
     def index
         render json: CourseDocument.all
