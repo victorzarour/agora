@@ -15,6 +15,7 @@ function StudentList(){
     })
     }, [id])
 
+    if (!isLoaded) return <h2>Loading...</h2>
 
     return (
         <div>
