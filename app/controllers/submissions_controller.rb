@@ -25,6 +25,10 @@ class SubmissionsController < ApplicationController
         @submission.destroy
         head :no_content
     end
+
+    def student_submissions
+        render json: Submission.where(student_id: params[:id])
+    end
     
     private
 

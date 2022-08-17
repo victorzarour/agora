@@ -21,11 +21,17 @@ class GradesController < ApplicationController
         render json: @grade, status: :ok
     end
 
-    def destroy
-        @grade.destroy
+    def get_grade
+        grade = Grade.find_by(submission_id: params[:id])
+        render json: grade
+    end    
+
+    def delete_grade
+        grade = Grade.find_by(submission_id: params[:id])
+        grade.destroy
         head :no_content
     end
-    
+
     private
 
     def grade_params

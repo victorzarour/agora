@@ -23,10 +23,6 @@ function Navbar(){
       <nav>
          
             <div>
-  
-              {/* <NavLink to='/'>
-                <p><span>Home</span></p>
-              </NavLink> */}
 
               { user ? 
                 <>
@@ -44,13 +40,6 @@ function Navbar(){
                 ""
               }
 
-              {/* <NavLink to='/mysongs'>
-                <p><span>My Songs</span></p>
-              </NavLink>
-
-              <NavLink to='/myalbums'>
-                <p><span>My Albums</span></p>
-              </NavLink> */}
             </div> 
 
         </nav>

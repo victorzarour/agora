@@ -31,6 +31,11 @@ Rails.application.routes.draw do
 
   get '/assignments/:id/submissions', to: 'assignments#assignment_submissions'
 
+  get '/grades/submission/:id', to: 'grades#get_grade'
+  delete '/grades/submission/:id', to: 'grades#delete_grade'
+
+  get 'submissions/:id/grades', to: 'submissions#student_submissions'
+
   
   get '*path',
       to: 'fallback#index',

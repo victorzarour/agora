@@ -60,6 +60,8 @@ function CourseDetails({  }){
                 <p><span>Discussion Board</span></p>
             </NavLink>
 
+            
+
             {user?.admin ? 
                 <>
                 <NavLink to={`/course/${id}/students`}>
@@ -68,7 +70,10 @@ function CourseDetails({  }){
                 <button onClick={handleDeleteCourse}>Delete</button>
                 </>
             :
-                null
+
+                <NavLink to={`/course/${id}/grades`}>
+                    <p><span>Grades</span></p>
+                </NavLink>
             }
 
         </div>
