@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   get '/grades/submission/:id', to: 'grades#get_grade'
   delete '/grades/submission/:id', to: 'grades#delete_grade'
 
-  get 'submissions/:id/grades', to: 'submissions#student_submissions'
+  get '/submissions/:id/grades', to: 'submissions#student_submissions'
 
   
   get '*path',

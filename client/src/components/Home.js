@@ -23,10 +23,9 @@ function Home() {
     
 
     return (
-        <div>
+        <div className="bg-slate-200 min-h-screen flex flex-row">
             <SignupForm />
             <SignupFormStudent />
-            <LoginForm />
         </div>
     ); 
 }

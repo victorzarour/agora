@@ -17,6 +17,7 @@ import Table from "./Table";
 import StudentDetails from "./components/StudentDetails";
 import StudentGrades from "./components/StudentGrades";
 import CourseDocumentList from "./components/CourseDocumentList";
+import LoginForm from "./components/LoginForm";
 
 function App() {
 
@@ -75,6 +76,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/login">
+            <LoginForm />
           </Route>
         </Switch>
       </div>
