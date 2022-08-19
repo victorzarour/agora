@@ -51,33 +51,39 @@ const LoginForm = () => {
   };
 
   return (
+    
+    <div className="bg-slate-200 min-h-screen flex flex-row">
+      <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
 
-      <form className="form" onSubmit={ handleSubmit }>
+        <form onSubmit={ handleSubmit } className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
 
-        <h1>Welcome back!</h1>
-        <span>Login to continue</span>
+          <h1 className="mb-8 text-xl text-center font-bold">Welcome Back!</h1>
 
-        <input
-        label="Email"
-        type="text"
-        required
-        onChange={ handleChange }
-        placeholder='email'
-        name="email"
-        value={ email }
-        />
+          <input
+          label="Email"
+          type="text"
+          required
+          className="block border border-grey-light w-full p-3 rounded mb-4"
+          onChange={ handleChange }
+          placeholder='Email'
+          name="email"
+          value={ email }
+          />
 
-        <input
-        label="Password"
-        type="password"
-        required
-        onChange={ handleChange }
-        placeholder='password'
-        name="password"
-        value={ password }
-        />
-        <button type="submit">Login</button>
-      </form>
+          <input
+          label="Password"
+          type="password"
+          required
+          className="block border border-grey-light w-full p-3 rounded mb-4"
+          onChange={ handleChange }
+          placeholder='Password'
+          name="password"
+          value={ password }
+          />
+          <button type='submit' className="w-full text-center py-3 rounded bg-green-700 text-white hover:bg-violet-600 focus:outline-none my-1">Login</button>    
+        </form>
+      </div>
+    </div>
   );
 };
 
