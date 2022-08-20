@@ -51,25 +51,33 @@ function SubmissionRow({ submission }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <tr>
-                <td>{assignment.title}</td>
-                <td><a download href={file_url}>{file_name}</a></td>
+        <div class="overflow-x-auto relative">
+        <form onSubmit={handleSubmit} className>
+            <table class="w-1/3 text-sm text-center text-gray-500 dark:text-gray-400">
+            <tbody>
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/3">{assignment.title}</td>
+                <td scope="row" class="py-4 px-6 w-1/3"><a download href={file_url} className="hover:text-blue-700">{file_name}</a></td>
                 {grade ? 
                     <>
-                    <div>
-                        <span>{grade.letter_grade}</span>
-                        <i className="fa-solid fa-xmark" onClick={handleDeleteGrade}></i>
-                    </div>
+                    <td class="py-4 px-6 w-1/3">
+                        <span className="font-bold">{grade.letter_grade}</span>
+                        <i className="fa-solid fa-xmark cursor-pointer ml-2 text-sm" onClick={handleDeleteGrade}></i>
+                    </td>
                     </>
 
                  :
-                    <div>
-                        <input type="text" id="letter_grade" placeholder="letter_grade..." name="letter_grade" value={letterGrade} onChange={handleChange}></input> 
-                        <button type='submit'>Submit Grade</button>
-                    </div>}
+                    <td class="px-6 w-1/3">
+
+                        <input type="text" id="letter_grade" name="letter_grade" value={letterGrade} onChange={handleChange} className="block py-2.5 px-0 w-1/3 mx-auto text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer text-center"></input> 
+                        <button type='submit'>Grade</button>
+
+                    </td>}
             </tr>
+            </tbody>
+            </table>
         </form>
+        </div>
     )
 }
 

@@ -8,9 +8,9 @@ function CourseDocument ({ document, onDeleteDocument }){
     }
 
     return (
-        <div>
-            <a download href={document.document_file_url}>{document.document_file_name}</a>
-            <i className="fa-solid fa-xmark" onClick={handleDeleteDocument}></i>
+        <div className='my-5 ml-4 font-semibold'>
+            <a download href={document.document_file_url} className="hover:text-blue-700">{document.document_file_name}</a>
+            <i className="fa-solid fa-xmark ml-2 cursor-pointer" onClick={handleDeleteDocument}></i>
         </div>
     )
 }

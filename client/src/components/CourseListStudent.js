@@ -58,16 +58,16 @@ function CourseListStudent( ){
         // console.log(session[user_id])
 
     return (
-        <div>
+        <div className='min-h-screen bg-slate-200 text-center pt-20'>
 
-            Welcome, {user?.first_name}
+            <h1 className='text-4xl font-bold my-8'>Welcome, {user?.first_name}</h1>
 
-
+            <h2 className='text-2xl font-bold my-8'>Your courses</h2>
 
             {courses?.map(course => {
                 return (
-                    <p>
-                        <NavLink to={`/courses/${course.id}`}>
+                    <p className='font-bold my-8'>
+                        <NavLink to={`/courses/${course.id}`} className="hover:text-blue-700">
                             <span>{course.title}</span>
                         </NavLink>
                         <span>, {course.university}</span>
@@ -77,16 +77,18 @@ function CourseListStudent( ){
                     )} )
              }
 
-            <button onClick={toggleShowForm}>Add a course</button>
+            <button onClick={toggleShowForm} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add a course</button>
 
-            <div className={show ? "show" : "hide"}> 
+            <div className={show ? "show my-9 w-1/12 mx-auto" : "hide"}> 
 
                 <form onSubmit={handleSubmit} autoComplete="off" >
+
                     <div>                        
-                        <input type="text" id="code" placeholder="code..." name="code" value={code} onChange={handleChange} />
+                        <input type="text" id="code" placeholder="Code" name="code" value={code} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer text-center"/>
                     </div>
 
-                    <button type="submit">Submit</button>
+                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-6">Submit</button>
+
                 </form>
 
             </div>

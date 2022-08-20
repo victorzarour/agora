@@ -60,22 +60,28 @@ function Discussion(){
     }
 
     return (
-        <>
+        <div className='min-h-screen bg-slate-200 text-justify p-10'>
             <div>
-                <p>{discussion.title}</p>
-                <p>{discussion.created_at.slice(0, 10)}</p>
+                <h2 className='text-2xl font-bold mb-5'>{discussion.title}</h2>
+                <p className='text-l font-bold my-3'>{discussion.created_at.slice(0, 10)}</p>
                 <p>{discussion.body}</p>
             </div>
 
             {user?.admin ?
                 <>
-                <button onClick={toggleEdit}>Edit discussion</button>
-                <button onClick={handleDeletediscussion}>Delete discussion</button>
 
-                <form onSubmit={handlePatch} className={show ? "show" : "hide"}>
-                    <input type="text" id="title" placeholder="title..." name="title" value={formData.title} onChange={handleChange}></input>
-                    <input type="textarea" id="body" placeholder="body..." name="body" value={formData.body} onChange={handleChange}></input>
-                    <button type='submit'>Submit</button>
+                <button onClick={toggleEdit} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-6 block">Edit discussion</button>
+
+                <button onClick={handleDeletediscussion} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-6 block">Delete discussion</button>
+
+                <form onSubmit={handlePatch} className={show ? "show w-100 mt-3" : "hide"}>
+
+                    <input type="text" id="title" placeholder="Title" name="title" value={formData.title} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
+
+                    <textarea type="textarea" id="body" placeholder="Body" name="body" value={formData.body} onChange={handleChange} rows="4" className="mt-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+
+                    <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-8">Submit</button>
+
                 </form>
                 </>
             :
@@ -85,7 +91,7 @@ function Discussion(){
 
             <DiscussionPostList discussionId={id}/>
 
-        </>
+        </div>
     )
 }
 
