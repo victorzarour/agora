@@ -2,6 +2,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import DeleteConfirmation from './DeleteConfirmation';
 
 function Assignment(){
     const [isLoaded, setIsLoaded] = useState(false)
@@ -13,6 +14,7 @@ function Assignment(){
     const { user } = useContext(UserContext);
     const [formDataPatch, setFormDataPatch] = useState([]);
     const [submission, setSubmission] = useState([])
+    const [showConfirmation, setShowConfirmation] = useState(false)
 
     useEffect(() => {
         fetch(`/assignments/${id}`)
@@ -87,6 +89,10 @@ function Assignment(){
 
      const destructuredIds = submissions.map(submission => submission.student_id)
 
+     function handleToggle() {
+        setShowConfirmation(!showConfirmation)
+    }
+
     return (
         <div className='min-h-screen bg-slate-200 text-justify p-10'>
             <div>
@@ -99,7 +105,7 @@ function Assignment(){
                 <>
                     <button onClick={toggleEdit} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-6 block">Edit Assignment</button>
                     
-                    <button onClick={handleDeleteAssignment} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-6">Delete Assignment</button>
+                    <button onClick={handleToggle} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-6">Delete Assignment</button>
 
                     <form onSubmit={handlePatch} className={show ? "show w-1/2" : "hide"}>
 
@@ -150,9 +156,9 @@ function Assignment(){
             }
 
 
-
-
-
+            <div className={showConfirmation ? "show" : "hide"}>
+                <DeleteConfirmation handleToggle={handleToggle} handleDelete={handleDeleteAssignment} show={showConfirmation} item="Assignment"/>
+            </div>
 
         </div>
     )

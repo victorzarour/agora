@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import SyllabusForm from './SyllabusForm';
+import DeleteConfirmation from './DeleteConfirmation';
 
 function CourseDetails({  }){
 
     const [isLoaded, setIsLoaded] = useState(false)
     const [course, setCourse] = useState([])
+    const [show, setShow] = useState(false)
     const history = useHistory();
     const { id } = useParams();
     const { user } = useContext(UserContext);
@@ -29,7 +31,12 @@ function CourseDetails({  }){
             method:'DELETE'
           })
         history.push(`/professors/${course.professor.id}/courses`);
-      }
+    }
+
+    function handleToggle() {
+        setShow(!show)
+    }
+    
 
     return (
         <div className='min-h-screen bg-slate-200 pt-10'>
@@ -47,7 +54,7 @@ function CourseDetails({  }){
 
                 : 
                     <>
-                        <h2>Add a syllabus description</h2> 
+                        <h2 className='mt-10'>Add a syllabus description</h2> 
                         <SyllabusForm course={course} setCourse={setCourse}/>
                     </>}
 
@@ -78,13 +85,18 @@ function CourseDetails({  }){
 
                 {user?.admin ? 
                     <>
+                    
                     <p className='my-8'>
                         <NavLink to={`/course/${id}/students`}>
                             <span className='hover:text-blue-700'>Students</span>
                         </NavLink>
                     </p>
-                    <button onClick={handleDeleteCourse} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Delete Course</button>
+
+
+                    <button onClick={handleToggle} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Delete Course</button>
+                    
                     </>
+
                 :
 
                     <p className='my-8'>
@@ -93,6 +105,10 @@ function CourseDetails({  }){
                     </NavLink>
                     </p>
                 }
+            </div>
+
+            <div className={show ? "show" : "hide"}>
+                <DeleteConfirmation handleToggle={handleToggle} handleDelete={handleDeleteCourse} show={show} item="Course"/>
             </div>
 
         </div>

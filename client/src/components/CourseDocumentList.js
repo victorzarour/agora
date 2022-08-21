@@ -54,7 +54,7 @@ function CourseDocumentList (){
 
             { user?.admin ?
 
-                <form onSubmit={handleSubmit} className="mt-6">
+                <form onSubmit={handleSubmit} className="mt-8 ml-4">
 
                 <input type="file" id="file" name="file"/>
 

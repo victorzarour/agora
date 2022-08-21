@@ -3,7 +3,7 @@ class Submission < ApplicationRecord
   belongs_to :assignment
   belongs_to :student
   has_one :course_student, through: :student
-  has_one :grade
+  has_one :grade, dependent: :destroy
 
   has_one_attached :file
 
