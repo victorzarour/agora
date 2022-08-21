@@ -1,10 +1,13 @@
 import { NavLink, useHistory } from 'react-router-dom'
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import { CourseContext } from "../context/course";
+import Dropdown from './Dropdown';
 
 function Navbar(){
   const history = useHistory();
   const { user, setUser } = useContext(UserContext)
+  const { currentCourse, setCurrentCourse } = useContext(CourseContext)
 
   const handleLogout = () => {
     fetch('/logout', {
@@ -40,16 +43,28 @@ function Navbar(){
                 <ul class="flex flex-col mt-4 bg-gray-50 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
 
                   <li>
-                    <NavLink to={user.admin ? `/professors/${user.id}/courses` : `/students/${user.id}/courses`} className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">
+                    <NavLink to={user.admin ? `/professors/${user.id}/courses` : `/students/${user.id}/courses`} className="mt-1 block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-white dark:bg-blue-600 md:dark:bg-transparent" aria-current="page"  onClick={(e) => setCurrentCourse(null)}>
                       My Courses
                     </NavLink>
                   </li>
 
                   <li>
-                    <NavLink to='/logout' onClick={ handleLogout } className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                    <NavLink to='/logout' onClick={ handleLogout } className="mt-1 block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                       Logout
                     </NavLink>
                   </li>
+
+                  {
+                    currentCourse ? 
+
+                    <Dropdown currentCourse={currentCourse} />
+
+                    :
+
+                    null
+
+                  }
+                  
 
                 </ul>
 

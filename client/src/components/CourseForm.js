@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import { CourseContext } from "../context/course";
 import { useHistory } from "react-router-dom";
 
 function CourseForm( { setCourses, courses } ) {
     const history = useHistory();
     const { user, setUser } = useContext(UserContext);
+    const { currentCourse, setCurrentCourse } = useContext(CourseContext)
 
     const [formData, setFormData] = useState({
         university: "",
@@ -36,6 +38,8 @@ function CourseForm( { setCourses, courses } ) {
         .then(newCourse => {
             setCourses([...courses, newCourse])
             history.push(`/courses/${newCourse.id}`) 
+            console.log(newCourse)
+            setCurrentCourse(newCourse)
             })
 
     };

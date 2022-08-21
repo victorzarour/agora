@@ -1,11 +1,13 @@
 import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import { CourseContext } from "../context/course";
 import { useEffect, useState } from "react";
 import CourseForm from './CourseForm'
 
 function CourseList( ){
     const { user } = useContext(UserContext)
+    const { currentCourse, setCurrentCourse } = useContext(CourseContext)
     const [courses, setCourses] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
     const [show, setShow] = useState(false)
@@ -36,7 +38,7 @@ function CourseList( ){
             {courses?.map(course => {
                 return (
                     <p className='font-bold my-8'>
-                        <NavLink to={`/courses/${course.id}`} className="hover:text-blue-700">
+                        <NavLink to={`/courses/${course.id}`} className="hover:text-blue-700" onClick={(e) => setCurrentCourse(course)}>
                             <span> - {course.title}</span>
                         </NavLink>
                         <span>, {course.university}</span>
