@@ -2,6 +2,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import parse from 'html-react-parser';
 
 function Announcement(){
     const [isLoaded, setIsLoaded] = useState(false)
@@ -63,7 +64,7 @@ function Announcement(){
             <div>
                 <h1 className='text-2xl font-bold text-center mb-5'>{announcement.title}</h1>
                 <p className='my-3'>{announcement.created_at.slice(0, 10)}</p>
-                <p>{announcement.body}</p>
+                <p>{parse(announcement.body)}</p>
             </div>
 
             {user?.admin ?

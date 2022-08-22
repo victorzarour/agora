@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from 'react-router-dom'
 
-function Dropdown ( { currentCourse } ){
+function Dropdown ( { currentCourse, user } ){
 
     const [show, setShow] = useState(false)
     
@@ -20,25 +20,39 @@ function Dropdown ( { currentCourse } ){
             <div class={show ? "show origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" : "hide"} role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <div class="py-1" role="none">
 
-                <NavLink to={`/syllabus/${currentCourse.syllabus?.id}`} >
-                    <span className='hover:text-blue-700 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-0">Syllabus</span>
+                <NavLink to={`/syllabus/${currentCourse.syllabus?.id}`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-0">Syllabus</span>
                 </NavLink> 
 
-                <NavLink to={`/course/${currentCourse.id}/assignments`}>
-                    <span className='hover:text-blue-700 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-1">Assignments</span>
+                <NavLink to={`/course/${currentCourse.id}/assignments`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-1">Assignments</span>
                 </NavLink>
 
-                <NavLink to={`/course/${currentCourse.id}/announcements`}>
-                    <span className='hover:text-blue-700 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-2">Announcements</span>
+                <NavLink to={`/course/${currentCourse.id}/announcements`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-2">Announcements</span>
                 </NavLink>
 
-                <NavLink to={`/course/${currentCourse.id}/discussion_board`}>
-                    <span className='hover:text-blue-700 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-3">Discussion Board</span>
+                <NavLink to={`/course/${currentCourse.id}/discussion_board`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-3">Discussion Board</span>
                 </NavLink>
 
-                <NavLink to={`/course/${currentCourse.id}/documents`}>
-                    <span className='hover:text-blue-700 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-4">Course Documents</span>
+                <NavLink to={`/course/${currentCourse.id}/documents`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-4">Course Documents</span>
                 </NavLink>
+
+                {user?.admin ?
+
+                    <NavLink to={`/course/${currentCourse.id}/students`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-5">Students</span>
+                    </NavLink>
+
+                :
+
+                    <NavLink to={`/course/${currentCourse.id}/grades`} onClick={(e) => setShow(!show)}>
+                    <span className='hover:bg-gray-100 text-gray-700 block px-4 py-2 text-sm' role="menuitem" tabindex="-1" id="menu-item-6">Grades</span>
+                    </NavLink>
+
+                }
 
                 </div>
             </div>

@@ -57,7 +57,7 @@ function Navbar(){
                   {
                     currentCourse ? 
 
-                    <Dropdown currentCourse={currentCourse} />
+                    <Dropdown currentCourse={currentCourse} user={user} />
 
                     :
 
