@@ -80,7 +80,7 @@ function Syllabus( ){
     }
 
     return (
-        <div className='min-h-screen bg-slate-200 p-7'>
+        <div className='min-h-screen bg-slate-200 p-7 pb-10'>
             <h1 className='text-4xl font-bold my-8'>{syllabus.course?.title}</h1>
 
             <p className='text-justify my-8'>{parse(syllabus.description)}</p>
@@ -93,7 +93,7 @@ function Syllabus( ){
 
             {user?.admin ?
 
-                <>
+                <div>
                 <h2 className='text-l font-semibold mt-10'>To continue building your syllabus, add assigned readings with their corresponding due date below.</h2>
 
                 <form onSubmit={handleSubmit} className="w-1/4 mt-10 ml-4">
@@ -102,7 +102,7 @@ function Syllabus( ){
                     <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-4">Submit</button>
      
                 </form>
-                </>
+                </div>
             :
 
                 null
