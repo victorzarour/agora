@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import SyllabusEntry from './SyllabusEntry';
+import parse from 'html-react-parser'
 
 function Syllabus( ){
     const { id } = useParams();
@@ -82,7 +83,7 @@ function Syllabus( ){
         <div className='min-h-screen bg-slate-200 p-7'>
             <h1 className='text-4xl font-bold my-8'>{syllabus.course?.title}</h1>
 
-            <p className='text-justify my-8'>{syllabus.description}</p>
+            <p className='text-justify my-8'>{parse(syllabus.description)}</p>
 
             {entries.map(entry => {
                 return (
@@ -92,13 +93,16 @@ function Syllabus( ){
 
             {user?.admin ?
 
-                <form onSubmit={handleSubmit} className="w-1/4 mt-10">
+                <>
+                <h2 className='text-l font-semibold mt-10'>To continue building your syllabus, add assigned readings with their corresponding due date below.</h2>
+
+                <form onSubmit={handleSubmit} className="w-1/4 mt-10 ml-4">
                     <input type="date" id="date" placeholder="date..." name="date" value={formData.date} onChange={handleChange} class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
                     <input type="text" id="assignment" placeholder="Assignment" name="assignment" value={formData.assignment} onChange={handleChange} class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
                     <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-4">Submit</button>
      
                 </form>
-
+                </>
             :
 
                 null

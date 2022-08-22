@@ -1,19 +1,19 @@
-import { useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function AnnouncementList( ){
     const [isLoaded, setIsLoaded] = useState(false)
     const [announcements, setAnnouncements] = useState([])
     const { id } = useParams();
     const { user } = useContext(UserContext);
+    const history = useHistory();
+    const [title, setTitle] = useState("")
 
-    const [formData, setFormData] = useState({
-        title: "",
-        body: "",
-        course_id: id
-      });
+    const [text, setText] = useState("")
     
 
     useEffect(() => {
@@ -28,8 +28,7 @@ function AnnouncementList( ){
     if (!isLoaded) return <h2>Loading...</h2>
 
     function handleChange(e){
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setTitle(e.target.value)
     };
 
     function handleSubmit(e){
@@ -40,45 +39,65 @@ function AnnouncementList( ){
             "Content-Type": "application/json",
             Accept: "application/json",
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({
+                title: title,
+                body: text,
+                course_id: id
+              }),
         })
         .then((resp) => resp.json())
-        .then((announcement) => {setAnnouncements([...announcements, announcement]);
-        setFormData({
-            title: "",
-            body: "",
-            course_id: id
-        });
+        .then((announcement) => {
+            setAnnouncements([...announcements, announcement])
+            history.push(`/announcements/${announcement.id}`);
         });
     };
 
-
+    console.log(announcements.length)
     return (
         <div className='min-h-screen bg-slate-200 p-7'>
             <h1 className='text-4xl font-bold my-8'>Announcements</h1>
-                {announcements?.map(announcement => {
-                    return (
-                        <p className='my-8 ml-4'>
-                            <NavLink to={`/announcements/${announcement.id}`} className="hover:text-blue-700">
-                                <span className='font-bold'>{announcement.title}</span>
-                            </NavLink>
-                            <span> - {announcement.created_at.slice(5, 10)}</span>
-                        </p>
-
-                    )
-                })}
+                { announcements.length  ? 
                 
+                    announcements.map(announcement => {
+                        return (
+                            <p className='my-8 ml-4'>
+                                <NavLink to={`/announcements/${announcement.id}`} className="hover:text-blue-700">
+                                    <span className='font-bold'>{announcement.title}</span>
+                                </NavLink>
+                                <span> - {announcement.created_at.slice(5, 10)}</span>
+                            </p>
+
+                        )
+                    })
+
+                :
+
+                    <p>There are no announcements yet!</p>
+            
+            
+                }
+
+
+                
+
     
             {user?.admin ?
                 <>
                     <h2 className='text-xl font-bold my-8'>Add an announcement</h2>
-                    <form onSubmit={handleSubmit} className="w-1/4">
+                    <form onSubmit={handleSubmit} className="w-1/2">
 
-                        <input type="text" id="title" placeholder="Title" name="title" value={formData.title} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
-            
-                        <textarea name="body" value={formData.body} onChange={handleChange} id="message" rows="4" className="mt-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Announcement"></textarea>
+                        <input type="text" id="title" placeholder="Title" name="title" value={title} onChange={handleChange} className="block py-2.5 px-1 w-full text-sm text-gray-900 bg-white border-1 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer mb-6"></input>
 
-                        <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-4">Submit</button>
+                        <CKEditor 
+                        editor={ClassicEditor}
+                        data={text}
+                        onChange={(event, editor) => {
+                            const data = editor.getData()
+                            setText(data)
+                        }}
+                        /> 
+
+                        <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-6">Submit</button>
 
                     </form>
                 </>

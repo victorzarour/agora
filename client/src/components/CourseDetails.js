@@ -54,7 +54,7 @@ function CourseDetails({  }){
 
                 : 
                     <>
-                        <h2 className='mt-10'>Add a syllabus description</h2> 
+                        <h2 className='my-8'>Begin building your course by adding a description for your class.</h2> 
                         <SyllabusForm course={course} setCourse={setCourse}/>
                     </>}
 
@@ -92,9 +92,6 @@ function CourseDetails({  }){
                         </NavLink>
                     </p>
 
-
-                    <button onClick={handleToggle} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Delete Course</button>
-                    
                     </>
 
                 :
@@ -106,6 +103,18 @@ function CourseDetails({  }){
                     </p>
                 }
             </div>
+
+                {user?. admin ?
+
+                
+                    <button onClick={handleToggle} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-5">Delete Course</button>
+                    
+                    :
+
+                    ""
+
+
+                }
 
             <div className={show ? "show" : "hide"}>
                 <DeleteConfirmation handleToggle={handleToggle} handleDelete={handleDeleteCourse} show={show} item="Course"/>

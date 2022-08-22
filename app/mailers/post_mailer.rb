@@ -10,7 +10,7 @@ class PostMailer < ApplicationMailer
 
     mail(
       from: "vx_zz@hotmail.com",
-      to: Professor.first.email, 
+      to: "vx_zz@hotmail.com", 
       subject: "New post created"
     ) 
   end

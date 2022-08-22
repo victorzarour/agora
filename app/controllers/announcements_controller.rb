@@ -13,7 +13,6 @@ class AnnouncementsController < ApplicationController
 
     def create
         announcement = Announcement.create!(announcement_params)
-        PostMailer.post_created.deliver_later
         render json: announcement, status: :created
     end
 
