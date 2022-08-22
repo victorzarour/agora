@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import DiscussionPostList from './DiscussionPostList';
+import parse from 'html-react-parser';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function Discussion(){
     const [isLoaded, setIsLoaded] = useState(false)
@@ -64,7 +67,7 @@ function Discussion(){
             <div>
                 <h2 className='text-2xl font-bold mb-5'>{discussion.title}</h2>
                 <p className='text-l font-bold my-3'>{discussion.created_at.slice(0, 10)}</p>
-                <p>{discussion.body}</p>
+                <p>{parse(discussion.body)}</p>
             </div>
 
             {user?.admin ?
@@ -78,7 +81,14 @@ function Discussion(){
 
                     <input type="text" id="title" placeholder="Title" name="title" value={formData.title} onChange={handleChange} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"></input>
 
-                    <textarea type="textarea" id="body" placeholder="Body" name="body" value={formData.body} onChange={handleChange} rows="4" className="mt-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    <CKEditor 
+                        editor={ClassicEditor}
+                        data={formData.body}
+                        onChange={(event, editor) => {
+                            const data = editor.getData()
+                            setFormData({ ...formData, ["body"]: data })
+                        }}
+                    /> 
 
                     <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-8">Submit</button>
 

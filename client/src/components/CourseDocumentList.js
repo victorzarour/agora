@@ -1,4 +1,4 @@
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";

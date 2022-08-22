@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/user";
 import DeleteConfirmation from './DeleteConfirmation';
+import parse from 'html-react-parser';
 
 function Assignment(){
     const [isLoaded, setIsLoaded] = useState(false)
@@ -98,7 +99,7 @@ function Assignment(){
             <div>
                 <h1 className='text-2xl font-bold text-center mb-5'>{assignment.title}</h1>
                 <p className='text-l font-bold my-3 text-center'>Due date: {assignment.due_date}</p>
-                <p>{assignment.description}</p>
+                <p>{parse(assignment.description)}</p>
             </div>
 
             {user?.admin ?

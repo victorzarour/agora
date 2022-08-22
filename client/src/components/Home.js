@@ -23,10 +23,29 @@ function Home() {
     
 
     return (
-        <div className="bg-slate-200 min-h-screen flex flex-row">
-            <SignupForm />
-            <SignupFormStudent />
-        </div>
+      <>
+      {user ?
+
+         user.admin ?
+
+          history.push(`/professors/${user.id}/courses`)
+
+          :
+
+          history.push(`/students/${user.id}/courses`)
+
+        
+        
+      :
+
+      <div className="bg-slate-200 min-h-screen flex flex-row">
+        <SignupForm />
+        <SignupFormStudent />
+      </div>
+
+      }
+      </>
+
     ); 
 }
 
