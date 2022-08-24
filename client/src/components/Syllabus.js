@@ -4,12 +4,16 @@ import { useContext } from "react";
 import { UserContext } from "../context/user";
 import SyllabusEntry from './SyllabusEntry';
 import parse from 'html-react-parser'
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 function Syllabus( ){
     const { id } = useParams();
     const [isLoaded, setIsLoaded] = useState(false)
     const [syllabus, setSyllabus] = useState([])
     const [entries, setEntries] = useState([])
+    const [show, setShow] = useState(true)
+    const [description, setDescription] = useState(syllabus?.description)
     const { user } = useContext(UserContext);
 
     const [formData, setFormData] = useState({
@@ -79,11 +83,41 @@ function Syllabus( ){
         setEntries(updatedEntries)
     }
 
+    function handlePatch(e) {
+        e.preventDefault()
+        setShow(!show)
+        fetch(`/syllabuses/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({description: description}),
+        })
+        .then(res => res.json())
+        .then(updatedSyllabus => setSyllabus(updatedSyllabus))
+        setShow(!show)
+    }
+
+
     return (
         <div className='min-h-screen bg-slate-200 p-7 pb-10'>
             <h1 className='text-4xl font-bold my-8'>{syllabus.course?.title}</h1>
+            
+            <button type='submit' className={show ? "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" : "hide"} onClick={(e) => setShow(!show)}>Edit Syllabus</button>
+            
+            <p className={show ? 'show text-justify my-8' : 'hide'}>{parse(syllabus.description)}</p>
 
-            <p className='text-justify my-8'>{parse(syllabus.description)}</p>
+            <form className={show ? 'hide' : 'show'} onSubmit={handlePatch}>
+                <CKEditor 
+                    editor={ClassicEditor}
+                    data={syllabus.description}
+                    onChange={(event, editor) => {
+                        const data = editor.getData()
+                        setDescription(data)
+                    }}
+                /> 
+                <button type='submit' className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
 
             {entries.map(entry => {
                 return (

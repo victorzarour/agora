@@ -33,9 +33,6 @@ function StudentGrades(){
     if (!isLoaded) return <h2>Loading...</h2>
 
     const filteredSubmissions = submissions.filter(submission => submission.assignment.course_id === course.id) 
-  
-
-  console.log(filteredSubmissions)
 
     return (
         <div className='min-h-screen bg-slate-200 p-7'>
@@ -57,7 +54,7 @@ function StudentGrades(){
                     return (
                         <tr className='class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"'>
                             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white w-1/3">{submission.assignment.title}</td>
-                            <td class="py-4 px-6 w-1/3">{submission.grade.letter_grade}</td>
+                            <td class="py-4 px-6 w-1/3">{submission.grade?.letter_grade}</td>
                         </tr>
                                 )
                             })}

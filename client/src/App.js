@@ -18,6 +18,9 @@ import StudentDetails from "./components/StudentDetails";
 import StudentGrades from "./components/StudentGrades";
 import CourseDocumentList from "./components/CourseDocumentList";
 import LoginForm from "./components/LoginForm";
+import UserProfile from "./components/UserProfile";
+import PasswordChange from "./components/PasswordChange";
+import EmailChange from "./components/EmailChange";
 
 function App() {
 
@@ -79,6 +82,15 @@ function App() {
           </Route>
           <Route exact path="/login">
             <LoginForm />
+          </Route>
+          <Route exact path="/profile/:id">
+            <UserProfile />
+          </Route>
+          <Route exact path="/password_change">
+            <PasswordChange />
+          </Route>
+          <Route exact path="/email_change">
+            <EmailChange />
           </Route>
         </Switch>
       </div>

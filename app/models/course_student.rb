@@ -9,4 +9,8 @@ class CourseStudent < ApplicationRecord
     "#{student.last_name}, #{student.first_name}"
   end
 
+  def course_student_email
+    student.email
+  end
+
 end

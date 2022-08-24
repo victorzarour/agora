@@ -22,7 +22,7 @@ function SignupForm( ){
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("passwords do not match");
+      alert("Passwords do not match.");
       return;
     }
 

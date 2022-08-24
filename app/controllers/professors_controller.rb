@@ -7,10 +7,20 @@ class ProfessorsController < ApplicationController
     end
   
     def create
-      professor = Professor.create!(professor_params)
-      session[:user_id] = professor.id
-      session[:is_prof] = 1
-      render json: professor, status: :created
+      if Student.where(email: params[:email]).exists?
+        render json: { errors: "Email has already been taken" }, status: :unprocessable_entity
+      else
+        professor = Professor.create!(professor_params)
+        session[:user_id] = professor.id
+        session[:is_prof] = 1
+        render json: professor, status: :created
+      end
+    end
+
+    def update
+      professor = Professor.find(params[:id])
+      professor.update!(professor_params)
+      render json: professor, status: :ok
     end
 
     def professor_courses

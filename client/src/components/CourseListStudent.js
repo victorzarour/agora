@@ -50,6 +50,7 @@ function CourseListStudent( ){
                     res.json().then(newCourse => {
                     setCourses([...courses, newCourse.course])
                     setCode("")})
+                    setShow(!show)
                 } else {
                     setShow(!show)
                     setDisplayError(!displayError)
@@ -95,9 +96,9 @@ function CourseListStudent( ){
 
             </div>
 
-            <div className={displayError ? "show" : "hide"}>
+            <div className={displayError ? "show mt-4 font-semibold" : "hide"}>
                 <p>Please enter a valid course code.</p>
-                <button onClick={() =>{
+                <button className='mt-4 hover:text-blue-700' onClick={() =>{
                     setShow(!show)
                     setDisplayError(!displayError)}}>Try again.</button>
             </div>

@@ -53,10 +53,19 @@ function CourseDetails({  }){
                     </p>
 
                 : 
+
+                    user.admin ?
                     <>
                         <h2 className='my-8'>Begin building your course by adding a description for your class.</h2> 
                         <SyllabusForm course={course} setCourse={setCourse}/>
-                    </>}
+                    </>
+
+                    :
+
+                    <p className='my-8'>Your professor hasn't posted a syllabus yet!</p>
+                    
+                
+                }
 
                 <p className='my-8'>
                     <NavLink to={`/course/${id}/assignments`}>
