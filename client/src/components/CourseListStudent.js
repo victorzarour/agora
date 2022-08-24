@@ -58,7 +58,6 @@ function CourseListStudent( ){
             })
         };
 
-        // console.log(session[user_id])
 
     return (
         <div className='min-h-screen bg-slate-200 text-center pt-20'>
@@ -70,7 +69,7 @@ function CourseListStudent( ){
             {courses?.map(course => {
                 return (
                     <p className='font-bold my-8'>
-                        <NavLink to={`/courses/${course.id}`} className="hover:text-blue-700" onClick={(e) => setCurrentCourse(course)}>
+                        <NavLink to={`/course/${course.id}`} className="hover:text-blue-700" onClick={(e) => setCurrentCourse(course)}>
                             <span>{course.title}</span>
                         </NavLink>
                         <span>, {course.university}</span>

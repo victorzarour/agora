@@ -12,6 +12,9 @@ class StudentsController < ApplicationController
         student = Student.create!(student_params)
         session[:user_id] = student.id
         session[:is_prof] = 0
+        if student.save
+          UserMailer.welcome_email(student).deliver_now
+        end
         render json: student, status: :created
       end
     end

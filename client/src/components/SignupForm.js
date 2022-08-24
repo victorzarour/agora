@@ -36,7 +36,7 @@ function SignupForm( ){
       if (response.ok) {
         response.json().then((professor) => {
           setUser(professor)
-          history.push(`/professors/${professor.id}/courses`);
+          history.push(`/professor/${professor.id}/courses`);
         });
       } else {
         response.json().then((resp) => alert(resp.errors));

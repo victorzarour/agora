@@ -13,6 +13,9 @@ class ProfessorsController < ApplicationController
         professor = Professor.create!(professor_params)
         session[:user_id] = professor.id
         session[:is_prof] = 1
+        if professor.save
+          UserMailer.welcome_email(professor).deliver_now
+        end
         render json: professor, status: :created
       end
     end

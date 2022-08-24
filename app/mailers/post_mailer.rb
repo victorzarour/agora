@@ -1,17 +1,9 @@
 class PostMailer < ApplicationMailer
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.post_mailer.post_created.subject
-  #
-  def post_created
-    @greeting = "Hi"
+    def post_email(students, course)
+        @students = students
+        @course = course
+        mail(to: @students.pluck(:email), subject: "Your Professor for #{@course} has posted a new announcement.")
+    end
 
-    mail(
-      from: "vx_zz@hotmail.com",
-      to: "vx_zz@hotmail.com", 
-      subject: "New post created"
-    ) 
-  end
 end

@@ -37,7 +37,7 @@ function CourseForm( { setCourses, courses } ) {
         .then(res => res.json())
         .then(newCourse => {
             setCourses([...courses, newCourse])
-            history.push(`/courses/${newCourse.id}`) 
+            history.push(`/course/${newCourse.id}`) 
             console.log(newCourse)
             setCurrentCourse(newCourse)
             })

@@ -48,7 +48,7 @@ function AnnouncementList( ){
         .then((resp) => resp.json())
         .then((announcement) => {
             setAnnouncements([...announcements, announcement])
-            history.push(`/announcements/${announcement.id}`);
+            history.push(`/announcement/${announcement.id}`);
         });
     };
 

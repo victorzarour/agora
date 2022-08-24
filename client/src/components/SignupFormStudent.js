@@ -37,7 +37,7 @@ function SignupFormStudent( ){
       if (response.ok) {
         response.json().then((student) => {
           setUser(student)
-          history.push(`/students/${student.id}/courses`);
+          history.push(`/student/${student.id}/courses`);
         });
       } else {
         response.json().then((resp) => alert(resp.errors));

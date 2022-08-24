@@ -36,9 +36,9 @@ const LoginForm = () => {
         resp.json().then( (user) => {
           setUser(user);
           if (user.admin === true) {
-            history.push(`/professors/${user.id}/courses`);
+            history.push(`/professor/${user.id}/courses`);
           } else {
-            history.push(`/students/${user.id}/courses`);
+            history.push(`/student/${user.id}/courses`);
           }
 
         });
