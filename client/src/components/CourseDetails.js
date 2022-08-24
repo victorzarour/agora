@@ -30,7 +30,9 @@ function CourseDetails({  }){
         fetch(`/courses/${id}`, {
             method:'DELETE'
           })
+ 
         history.push(`/professor/${course.professor.id}/courses`);
+        window.location.reload();
     }
 
     function handleToggle() {
