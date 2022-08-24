@@ -13,6 +13,9 @@ class GradesController < ApplicationController
 
     def create
         grade = Grade.create!(grade_params)
+        if grade.save
+            GradeMailer.grade_email(grade.student.email, grade.student.first_name, grade.assignment.title, grade.course.title).deliver_now
+        end
         render json: grade, status: :created
     end
 
