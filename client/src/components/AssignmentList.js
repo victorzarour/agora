@@ -63,7 +63,7 @@ function AssignmentList( ){
                 {assignments.map(assignment => {
                     return (
                         <p className='my-8 ml-4'>
-                            <NavLink to={`/assignments/${assignment.id}`} className="hover:text-blue-700">
+                            <NavLink to={`/assignment/${assignment.id}`} className="hover:text-blue-700">
                                 <span className='font-bold'>{assignment.title}</span>
                             </NavLink>
                             <span> - Due: {assignment.due_date.slice(5)}</span>

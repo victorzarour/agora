@@ -38,7 +38,7 @@ function CourseList( ){
             {courses?.map(course => {
                 return (
                     <p className='font-bold my-8'>
-                        <NavLink to={`/courses/${course.id}`} className="hover:text-blue-700" onClick={(e) => setCurrentCourse(course)}>
+                        <NavLink to={`/course/${course.id}`} className="hover:text-blue-700" onClick={(e) => setCurrentCourse(course)}>
                             <span> - {course.title}</span>
                         </NavLink>
                         <span>, {course.university}</span>

@@ -61,7 +61,7 @@ function DiscussionList( ){
                 {discussions?.map(discussion => {
                     return (
                         <p className='my-8 ml-4'>
-                            <NavLink to={`/discussions/${discussion.id}`} className="hover:text-blue-700">
+                            <NavLink to={`/discussion/${discussion.id}`} className="hover:text-blue-700">
                                 <span className='font-bold' >{discussion.title}</span>
                             </NavLink>
                             <span> - {discussion.created_at.slice(0, 10)}</span>

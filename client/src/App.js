@@ -29,28 +29,28 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
-          <Route exact path="/assignments/:id">
+          <Route exact path="/assignment/:id">
             <Assignment />
           </Route>
-          <Route exact path="/announcements/:id">
+          <Route exact path="/announcement/:id">
             <Announcement />
           </Route>
           <Route exact path="/course/:id/discussion_board">
             <DiscussionList />
           </Route>
-          <Route exact path="/discussions/:id">
+          <Route exact path="/discussion/:id">
             <Discussion />
           </Route>
-          <Route exact path="/professors/:id/courses">
+          <Route exact path="/professor/:id/courses">
             <CourseList />
           </Route>
-          <Route exact path="/students/:id/courses">
+          <Route exact path="/student/:id/courses">
             <CourseListStudent />
           </Route>
           <Route exact path="/courses/add">
             <CourseForm />
           </Route>
-          <Route exact path="/courses/:id">
+          <Route exact path="/course/:id">
             <CourseDetails />
           </Route>
           <Route exact path="/syllabus/:id">

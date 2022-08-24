@@ -61,7 +61,7 @@ function AnnouncementList( ){
                     announcements.map(announcement => {
                         return (
                             <p className='my-8 ml-4'>
-                                <NavLink to={`/announcements/${announcement.id}`} className="hover:text-blue-700">
+                                <NavLink to={`/announcement/${announcement.id}`} className="hover:text-blue-700">
                                     <span className='font-bold'>{announcement.title}</span>
                                 </NavLink>
                                 <span> - {announcement.created_at.slice(5, 10)}</span>
