@@ -102,8 +102,13 @@ function Syllabus( ){
     return (
         <div className='min-h-screen bg-slate-200 p-7 pb-10'>
             <h1 className='text-4xl font-bold my-8'>{syllabus.course?.title}</h1>
-            
-            <button type='submit' className={show ? "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" : "hide"} onClick={(e) => setShow(!show)}>Edit Syllabus</button>
+
+            { user?.admin ?
+
+                <button type='submit' className={show ? "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-3 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" : "hide"} onClick={(e) => setShow(!show)}>Edit Syllabus</button>
+            :
+                ""
+            }
             
             <p className={show ? 'show text-justify my-8' : 'hide'}>{parse(syllabus.description)}</p>
 
