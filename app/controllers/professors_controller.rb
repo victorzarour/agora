@@ -1,6 +1,6 @@
 class ProfessorsController < ApplicationController
     skip_before_action :authorized_user
-    skip_before_action :admin_user, only: [:show, :create]
+    skip_before_action :admin_user
 
     def show
       render json: current_user, status: :ok
@@ -24,6 +24,12 @@ class ProfessorsController < ApplicationController
       professor = Professor.find(params[:id])
       professor.update!(professor_params)
       render json: professor, status: :ok
+    end
+
+    def destroy
+      professor = Professor.find(params[:id])
+      professor.destroy
+      head :no_content
     end
 
     def professor_courses

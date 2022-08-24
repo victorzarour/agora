@@ -1,11 +1,33 @@
 import React from 'react'
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../context/user";
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
+import DeleteConfirmation from './DeleteConfirmation';
 
 export default function UserProfile() {
     const { user, setUser } = useContext(UserContext)
-  
+    const [show, setShow] = useState(false)
+    const history = useHistory();
+
+    function handleToggle() {
+        setShow(!show)
+    }
+
+    function handleDeleteProfile(){
+        console.log("hey")
+        if (user?.admin) {
+            fetch(`/professors/${user.id}`, {
+                method:'DELETE'
+            })
+        }else{
+            fetch(`/students/${user.id}`, {
+                method:'DELETE'
+            })
+        }
+        setUser(false)
+        history.push("/");
+    }
+
     return (
 
         <div className='min-h-screen bg-slate-200 pt-10 flex flex-row'>
@@ -39,6 +61,13 @@ export default function UserProfile() {
                     <NavLink to={`/password_change`}>
                         <span className='hover:text-black font-semibold'> here </span>
                     </NavLink>to change your password</span>
+
+                    <button onClick={handleToggle} type="submit" class="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-5">Delete Profile</button>
+
+                    <div className={show ? "show" : "hide"}>
+                        <DeleteConfirmation handleToggle={handleToggle} handleDelete={handleDeleteProfile} show={show} item="Profile"/>
+                    </div>
+
                 </div>
             </div>
         </div>

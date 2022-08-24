@@ -28,11 +28,11 @@ function Home() {
 
          user.admin ?
 
-          history.push(`/professors/${user.id}/courses`)
+          history.push(`/professor/${user.id}/courses`)
 
           :
 
-          history.push(`/students/${user.id}/courses`)
+          history.push(`/student/${user.id}/courses`)
 
         
         
