@@ -49,6 +49,19 @@ Any given student user will be able to enroll in multiple courses and access the
 
 ![Course Details](https://user-images.githubusercontent.com/79528112/189628679-a956ef80-989d-40a9-a82e-965b9a5b3331.JPG)
 
+![Agora  Syllabus](https://user-images.githubusercontent.com/79528112/189645311-facc9488-4388-4b9d-aab8-4d490d362370.JPG)
+
+![Agora  Assignments](https://user-images.githubusercontent.com/79528112/189645369-8c1d97bc-7ba3-4d5c-a738-705ec2ef7f39.JPG)
+
+![Agora  Course Documents](https://user-images.githubusercontent.com/79528112/189645422-e434e1e9-3f86-4b20-978a-239fe2b9c9d9.JPG)
+
+![Agora  Discussion Board](https://user-images.githubusercontent.com/79528112/189645460-00321b1e-8da5-4509-b19d-f922e21e62b5.JPG)
+
+![Agora  Students](https://user-images.githubusercontent.com/79528112/189645516-d1330282-8ae5-41b3-9638-4f6d6790296f.JPG)
+
+![Agora  Student](https://user-images.githubusercontent.com/79528112/189645568-9358701c-da67-4d1c-b90a-c6909dec7101.JPG)
+
+
 ## Setup
 
 To setup the app, first fork and cd into the directory, then run:
