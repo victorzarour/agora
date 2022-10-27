@@ -3,7 +3,7 @@
 
 ## OVERVIEW
 
-Agora is a centralized application that facilitates all aspects of course planning and management by allowing professors to share materials with students, create discussion boards, post assignments, and more.
+Agora is a centralized application that facilitates all aspects of course planning and management by allowing professors to share materials with students, create discussion boards, post assignments, and much more.
 
 The app is currently deployed here: https://agora-learn.herokuapp.com/
 
