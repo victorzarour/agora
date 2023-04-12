@@ -21,7 +21,7 @@ Any given professor user will be able to create multiple courses and add the fol
 
 - Assignments 
 
-- Announcements (every time an announcement is posted, students who are enrolled in the class will receive an email).
+- Announcements (every time an announcement is posted, students who are enrolled in the class will receive an email)
 
 - Discussion Board
 
